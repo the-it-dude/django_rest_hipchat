@@ -1,0 +1,37 @@
+{% extends 'django_rest_hipchat/base.html' %}
+
+{% block content %}
+<section class="aui-connect-page" role="main">
+    <section class="aui-connect-content with-list">
+        <ol class="aui-connect-list">
+            <li class="aui-connect-list-item">
+                <span class="aui-avatar aui-avatar-xsmall">
+                    <span class="aui-avatar-inner">
+                        <img style="background-color: #ccc;">
+                    </span>
+                </span>
+                <span class="aui-connect-list-item-title">Primary text</span>
+                <ul class="aui-connect-list-item-attributes">
+                    <li>Secondary text</li>
+                    <li>2016-10-20 02:30 PM</li>
+                </ul>
+                <div class="aui-connect-list-item-description">
+                    List view descriptions are optional.
+                </div>
+            </li>
+            <li class="aui-connect-list-item">
+                <span class="aui-avatar aui-avatar-xsmall">
+                    <span class="aui-avatar-inner">
+                        <img style="background-color: #ccc;">
+                    </span>
+                </span>
+                <span class="aui-connect-list-item-title">Primary text that is really really really really really really long</span>
+                <ul class="aui-connect-list-item-attributes">
+                    <li>Secondary text</li>
+                    <li>2016-10-20 02:30 PM</li>
+                </ul>
+            </li>
+        </ol>
+    </section>
+</section>
+{% endblock %}
