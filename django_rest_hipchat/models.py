@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 import uuid
 
 from django.db import models
+from .utils import update_glance
 
 
 class Integration(models.Model):
@@ -76,6 +77,16 @@ class Glance(models.Model):
 
     def get_url(self):
         return '{}/glance/{}'.format(self.integration.get_url(), str(self.id))
+
+    def update_label(self, installation, new_label):
+        """
+        Updates glance label.
+        """
+        return update_glance(
+            installation=installation,
+            glace=self,
+            new_label=new_label
+        )
 
 
 class Webhook(models.Model):
