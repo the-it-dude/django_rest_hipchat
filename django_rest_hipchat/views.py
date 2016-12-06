@@ -1,6 +1,7 @@
 import logging
 from django.views.generic import TemplateView
 from django.views.decorators.clickjacking import xframe_options_exempt
+from django.utils import timezone
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import (
@@ -66,6 +67,14 @@ class InstalledAPIView(IntegrationMixin, APIView):
             {'status': 'error', 'errors': form.errors},
             status=HTTP_400_BAD_REQUEST
         )
+
+
+class UninstalledAPIView(IntegrationMixin, APIView):
+    def post(self, request, integration_id, format=None):
+        logger.warn("Uninstaled request {}: {}".format(
+            self.get_integration(integration_id=integration_id),
+            request.data
+        ))
 
 
 class SidebarAPIView(IntegrationMixin, TemplateView):

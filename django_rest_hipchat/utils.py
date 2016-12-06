@@ -20,7 +20,7 @@ def get_access_token(installation):
     res = requests.post(
         '{}/oauth/token'.format(HIPCHAT_API_URL),
         data=payload,
-        auth=(installation.oauth_id, installation.oauth_secret)
+        auth=(str(installation.oauth_id), installation.oauth_secret)
     )
 
     if res.status_code == 200:
