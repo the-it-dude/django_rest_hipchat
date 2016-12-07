@@ -41,13 +41,14 @@ def update_glance(installation, glance, new_label):
 
     headers = {
         'Accept': 'application/json',
+        'Content-Type': 'application/json',
         'Authorization': 'Bearer {}'.format(access_token)
     }
 
     res = requests.post(
         '{}/addon/ui/room/{}'.format(HIPCHAT_API_URL, installation.room_id),
         headers=headers,
-        data={
+        json={
             'glance': [
                 {
                     'content': {
@@ -60,3 +61,4 @@ def update_glance(installation, glance, new_label):
     )
 
     logger.warn(repr(res))
+    return res
