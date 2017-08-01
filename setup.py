@@ -4,7 +4,7 @@ from distutils.core import setup
 
 setup(
     name='django_rest_hipchat',
-    version='0.0.1',
+    version='0.0.2',
     description=(
         "Django Rest Framework based HipChat integration implementation."
     ),
