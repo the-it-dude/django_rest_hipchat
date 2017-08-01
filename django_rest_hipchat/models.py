@@ -2,9 +2,11 @@ from __future__ import unicode_literals
 import uuid
 
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 from .utils import update_glance
 
 
+@python_2_unicode_compatible
 class Integration(models.Model):
 
     SCOPE_SEND_NOTIFICATIONS = 'send_notification'
@@ -36,7 +38,11 @@ class Integration(models.Model):
     def get_url(self):
         return '{}/{}'.format(self.url, str(self.id))
 
+    def __str__(self):
+        return self.name
 
+
+@python_2_unicode_compatible
 class WebPanel(models.Model):
     TYPE_SIDEBAR = 'sidebar'
 
@@ -61,7 +67,11 @@ class WebPanel(models.Model):
                                  self.panel_type,
                                  str(self.id))
 
+    def __str__(self):
+        return "{} @ {}".format(self.name, self.integration)
 
+
+@python_2_unicode_compatible
 class Glance(models.Model):
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
     integration = models.ForeignKey(Integration, related_name='glances')
@@ -88,7 +98,11 @@ class Glance(models.Model):
             new_label=new_label
         )
 
+    def __str__(self):
+        return "{} @ {}".format(self.name, self.integration)
 
+
+@python_2_unicode_compatible
 class Webhook(models.Model):
 
     EVENT_ROOM_MESSAGE = 'room_message'
@@ -107,12 +121,23 @@ class Webhook(models.Model):
     def get_url(self):
         return '{}/webhook/{}'.format(self.integration.get_url(), str(self.id))
 
+    def __str__(self):
+        return "{} for {} @ {}".format(self.name, self.event, self.integration)
 
+
+@python_2_unicode_compatible
 class Installation(models.Model):
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
+    integration = models.ForeignKey(Integration,
+                                    related_name='installations',
+                                    blank=True,
+                                    null=True)
     capabilities_url = models.URLField()
     room_id = models.IntegerField()
     group_id = models.IntegerField()
     oauth_id = models.UUIDField()
     oauth_secret = models.CharField(max_length=255)
     uninstalled = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return str(self.room_id)

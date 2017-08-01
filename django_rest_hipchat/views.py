@@ -45,14 +45,14 @@ class CabalitiesAPIView(IntegrationMixin, APIView):
 
 class InstalledAPIView(IntegrationMixin, APIView):
     def post(self, request, integration_id, format=None):
+        integration = self.get_integration(integration_id=integration_id)
         logger.warn("Installed request for {}: {}".format(
-            self.get_integration(integration_id=integration_id),
-            request.data
-        ))
+            integration, request.data))
 
         form = InstallationForm(request.data)
         if form.is_valid():
             installation = Installation.objects.create(
+                integration=integration,
                 oauth_id=form.cleaned_data['oauthId'],
                 oauth_secret=form.cleaned_data['oauthSecret'],
                 capabilities_url=form.cleaned_data['capabilitiesUrl'],
